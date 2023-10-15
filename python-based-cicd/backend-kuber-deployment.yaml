@@ -1,0 +1,94 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rc-backend
+  namespace: rc
+  labels:
+    app: rc-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rc-backend
+  template:
+    metadata:
+      labels:
+        app: rc-backend
+    spec:
+      containers:
+    #   - name: rc-backend-mongodb
+    #     image: mongo
+    #     volumeMounts:
+    #       - name: rc-backend-mongodb-vol
+    #         mountPath: /data/db
+    #         readOnly: false
+    #     ports:
+    #       - containerPort: 27017
+    #     envFrom:
+    #       - configMapRef:
+    #           name: rc-backend-config
+      - name: rc-backend-uwsgi
+        image: registry.mina.test/talent/backend/backend:VERSION
+        volumeMounts:
+          - name: rc-backend-uploads-vol
+            mountPath: /var/www/uploads
+            readOnly: false
+        args: ["uwsgi", "--module=career.wsgi:application", "--processes=4", "--protocol=http"]
+        ports:
+          - containerPort: 9000
+          - containerPort: 1717
+        envFrom:
+          - configMapRef:
+              name: rc-backend-config
+      - name: rc-backend-asgi
+        image: registry.mina.test/talent/backend/backend:VERSION
+        volumeMounts:
+          - name: rc-backend-uploads-vol
+            mountPath: /var/www/uploads
+            readOnly: false
+        args: ["daphne", "career.asgi:application", "-p", "8000", "-b", "0.0.0.0"]
+        ports:
+          - containerPort: 8000
+        envFrom:
+          - configMapRef:
+              name: rc-backend-config
+      - name: rc-backend-nginx
+        image: registry.mina.test/talent/backend/backend:VERSION
+        volumeMounts:
+          - name: rc-backend-uploads-vol
+            mountPath: /var/www/uploads
+            readOnly: false
+        args: ["nginx"]
+        ports:
+          - containerPort: 80
+          - containerPort: 8080
+        envFrom:
+          - configMapRef:
+              name: rc-backend-config
+      - name: rc-backend-celery
+        image: registry.mina.test/talent/backend/backend:VERSION
+        volumeMounts:
+          - name: rc-backend-uploads-vol
+            mountPath: /var/www/uploads
+            readOnly: false
+        args: ["celery", "career", '-l', 'info']
+        envFrom:
+          - configMapRef:
+              name: rc-backend-config
+      - name: rc-backend-flower
+        image: registry.mina.test/talent/backend/backend:VERSION
+        args: ["flower"]
+        ports:
+          - containerPort: 8888
+        envFrom:
+          - configMapRef:
+              name: rc-backend-config
+      imagePullSecrets:
+        - name: regcred
+      volumes:
+        - name: rc-backend-uploads-vol
+          persistentVolumeClaim:
+            claimName: rc-backend-uploads-pvc
+
+
+
