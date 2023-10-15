@@ -14,9 +14,9 @@ Contributing
 # Project Structure
 The project is structured into the following components:
 
-DockerFiles: This directory contains Dockerfiles for building Docker images. Each subdirectory may represent a different application or service.
-Jenkins: In this directory, you'll find Jenkins pipeline configuration files and job definitions to facilitate continuous integration processes.
-Kubernetes: The Kubernetes directory includes YAML files for deploying applications, services, and configurations in Kubernetes clusters.
+* DockerFiles: This directory contains Dockerfiles for building Docker images. Each subdirectory may represent a different application or service.
+* Jenkins: In this directory, you'll find Jenkins pipeline configuration files and job definitions to facilitate continuous integration processes.
+* Kubernetes: The Kubernetes directory includes YAML files for deploying applications, services, and configurations in Kubernetes clusters.
 
 # Usage
 To utilize this CI/CD project effectively, follow these high-level steps:
