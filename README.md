@@ -1,5 +1,3 @@
-# DevOps-Scripts-jenkins-kuber
-
 ## CI/CD Project with Docker, Jenkins, and Kubernetes
 This CI/CD project encompasses a set of essential tools and configurations for streamlining the development, testing, and deployment processes. It includes Docker files for containerization, Jenkins for continuous integration, and Kubernetes for orchestration.
 
