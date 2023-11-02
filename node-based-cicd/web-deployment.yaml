@@ -1,35 +1,19 @@
 apiVersion: apps/v1
-
 kind: Deployment
-
 metadata:
-
   name: rc-web
-
   namespace: rc
-
   labels:
-
     app: rc-web
-
 spec:
-
   replicas: 1
-
   selector:
-
     matchLabels:
-
       app: rc-web
-
   template:
-
     metadata:
-
       labels:
-
         app: rc-web
-
     spec:
 
       containers:
