@@ -1,16 +1,8 @@
 ## CI/CD Project with Docker, Jenkins, and Kubernetes
-This CI/CD project encompasses a set of essential tools and configurations for streamlining the development, testing, and deployment processes. It includes Docker files for containerization, Jenkins for continuous integration, and Kubernetes for orchestration.
+This CI/CD project is a set of essential tools and configurations for streamlining the development, testing, and deployment processes. It includes Docker files for containerization, Jenkins for continuous integration, and Kubernetes for orchestration.
 
-# Table of Contents
-Project Structure
-Usage
-Docker Files
-Jenkins Configuration
-Kubernetes Projects
-Contributing
 
 # Project Structure
-The project is structured into the following components:
 
 * DockerFiles: This directory contains Dockerfiles for building Docker images. Each subdirectory may represent a different application or service.
 * Jenkins: In this directory, you'll find Jenkins pipeline configuration files and job definitions to facilitate continuous integration processes.
