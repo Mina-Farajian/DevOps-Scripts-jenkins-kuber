@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+
+kind: Deployment
+
+metadata:
+
+  name: rc-web
+
+  namespace: rc
+
+  labels:
+
+    app: rc-web
+
+spec:
+
+  replicas: 1
+
+  selector:
+
+    matchLabels:
+
+      app: rc-web
+
+  template:
+
+    metadata:
+
+      labels:
+
+        app: rc-web
+
+    spec:
+
+      containers:
+
+      - name: nginx
+
+        image: registry.mina.com/web-next:VERSION
+
+        imagePullPolicy: IfNotPresent
+
+        args: ["nginx"]
+
+        ports:
+
+          - containerPort: 80
+
+      - name: next
+
+        image: registry.mina.com/web-next:VERSION
+
+        imagePullPolicy: IfNotPresent
+
+        args: ["run_next"] 
+
+      imagePullSecrets:
+
+        - name: regcred
