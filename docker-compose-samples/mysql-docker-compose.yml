@@ -1,0 +1,25 @@
+services:
+
+  mysql:
+    restart: always
+    container_name: mysql-rc
+      #build: .
+    image: mariadb:10.1.28
+    command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
+    env_file:
+      - docker.env
+    ports:
+      - 3306:3306
+    volumes:
+      - /var/lib/database/mysql-rc:/var/lib/mysql
+
+  phpmyadmin:
+    restart: always
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin-mysql-rc
+    env_file:
+      - docker.env
+    ports:
+      - 2475:80
+    volumes:
+      - /sessions
